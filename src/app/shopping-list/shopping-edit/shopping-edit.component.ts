@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 
 import { Ingredient } from '../../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list.service';
-// import * as ShoppingListActions from '../store/shopping-list.actions';
+import * as ShoppingListActions from '../store/shopping-list.actions';
 // import * as fromShoppingList from '../store/shopping-list.reducers';
 // import * as fromApp from '../../store/app.reducers';
 
@@ -24,7 +24,8 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   // @ViewChild('amountInput') amountInputRef: ElementRef;
   // @Output() ingredientAdded = new EventEmitter<Ingredient>();
 
-  constructor(private slService: ShoppingListService, /* private store: Store<fromApp.AppState> */) { }
+  constructor(private slService: ShoppingListService,
+    private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>) { }
 
   ngOnInit() {
     // this.subscription = this.store.select('shoppingList')
@@ -66,8 +67,8 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
       this.slService.updateIngredient(this.editedItemIndex, newIngredient);
       // this.store.dispatch(new ShoppingListActions.UpdateIngredient({ ingredient: newIngredient }))
     } else {
-      this.slService.addIngredient(newIngredient);
-      // this.store.dispatch(new ShoppingListActions.AddIngredient(newIngredient))
+      // this.slService.addIngredient(newIngredient);
+      this.store.dispatch(new ShoppingListActions.AddIngredient(newIngredient))
     }
     this.editMode = false;
     form.reset();
