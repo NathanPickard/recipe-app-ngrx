@@ -2,14 +2,13 @@ import * as ShoppingListActions from './shopping-list.actions';
 
 import { Ingredient } from '../../shared/ingredient.model';
 
-
 export interface State {
   ingredients: Ingredient[];
   editedIngredient: Ingredient;
   editedIngredientIndex: number;
 }
 
-const initialState: State = {
+const initialState = {
   ingredients: [
     new Ingredient('Apples', 5),
     new Ingredient('Tomatoes', 10)
